@@ -20,7 +20,7 @@ from utils.db_handler import DBHandler
 import json
 from langchain.schema import HumanMessage
 load_dotenv()
-API_KEY = os.getenv("GEMINI_API_KEY")  
+API_KEY = st.secrets["general"]["GEMINI_API_KEY"] 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_PATH = os.path.join(BASE_DIR, "assets", "student.csv")
 DB_DIR = os.path.join(BASE_DIR, "database")
@@ -155,10 +155,11 @@ def main():
 if __name__ == "__main__":
     main()
 
+groq_api_key = st.secrets["groq"]["api_key"]
 class LLMHandler:
     def __init__(self, api_key: str):
         self.model = ChatGroq(
-            groq_api_key="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",
+            groq_api_key=groq_api_key,
             model_name="llama-3.1-70b-versatile",
             temperature=0.7,
             max_tokens=7000,
